@@ -1,0 +1,53 @@
+{% extends "layout.html" %}
+
+{% block title %} auth {% endblock %}
+
+{% block css %}
+
+{% endblock %}
+
+{% block body %}
+<body class="text-center" background="static/images/bg3.jpg">
+
+  <div>
+    <img class="mb-4" src="static/images/logo4.png" alt="" width="200" height="200">
+  </div>
+    
+<main class="container-fluid h-100 d-flex align-items-center justify-content-center" >
+  
+
+
+    <form class=" bg-black w-25 h-50 rounded p-3" action="/login" method="POST">
+      {% with messages = get_flashed_messages() %}
+      {% if messages %}
+      <br />
+      {% for message in messages %}
+        <div class="alert alert-primary alert-dismissible" role="alert">
+          <strong>{{ message }}</strong>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      {% endfor %}
+      {% endif %}
+      {% endwith %}
+
+      <h1 class="h3 mb-3 fw-normal font-bold text-white mt-2">INICIA SESIÓN</h1>
+
+      <div class="form-floating mt-5">
+        <input type="username" name="username" class="form-control" id="floatingInput" placeholder="username">
+        <label for="floatingInput">Username</label>
+      </div>
+
+      <div class="form-floating mt-3">
+        <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="password">
+        <label for="floatingPassword">Password</label>
+      </div>
+
+      <button class="btn btn-lg btn-primary w-100 mt-3 mb-3" type="submit">ENTRAR</button>
+
+    </form>
+
+</main>
+</body>
+{% endblock %}
+
+

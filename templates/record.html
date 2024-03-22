@@ -1,0 +1,263 @@
+{% extends "layout.html" %}
+
+{% block tittle %} inventario {% endblock %}
+
+{% block link %}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+{% endblock %}
+
+
+
+
+
+{% block body %}
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<body class="">
+
+  <div>
+    <section class="  bg-[#C21807] h-[90px] flex items-center ">
+
+      <nav class=" ">
+          <div class="flex space-x-80 p-auto mx-5 items-center">
+              <img class="h-16 w-16" src=" static/images/logo4.png " alt="">
+              <h3 class="  font-semibold text-2xl text-white">UNIVERSALES LLANTAS Y SUSPENCIONES</h3>
+              <a class=" border-2 border-white text-white rounded-lg w-[68px] text-center hover:scale-110" href="{{ url_for('home') }}">Regresar</a>
+          </div>
+      </nav>
+
+  </section>
+  
+
+
+                                <!----  VENTANA MODAL     -->
+
+  <section>
+    <div class="flex justify-end ">
+      
+      <button type="button" class="  h-10 w-10  mx-4 my-2  rounded hover:scale-110  " data-toggle="modal" data-target="#myModal">
+        
+        <img class="w-8 h-8  " src="{{ url_for('static', filename='images/plus.svg') }}" alt="">
+      </button>
+    </div>
+  <div class="modal" id="myModal">
+      <div class="modal-dialog modal-lg">
+          <div class="modal-content"> 
+  
+              <!-- Modal Header -->
+              <div class="modal-header">
+                  <h4 class="modal-title">AGREGAR REGISTRO</h4>
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+              </div>
+  
+              <!-- Modal Body -->
+             
+
+              <!-- Modal Body -->
+              <div class="modal-body">
+                <h1>Formulario para agregar datos</h1>
+                
+                <form action="{{ url_for('agregar_historial') }}" method="POST">
+                    <!-- Campos del formulario -->
+                    <div class="mb-3">
+                        <label for="modelo" class="form-label">Modelo:</label>
+                        <input type="text" class="form-control" id="model" name="model" required>
+                    </div>
+                    <div class="mb-3">
+                      <label for="modelo" class="form-label">Marca:</label>
+                      <input type="text" class="form-control" id="brand" name="brand" required>
+                  </div>
+                    <div class="mb-3">
+                        <label for="marca" class="form-label">Motor:</label>
+                        <input type="text" class="form-control" id="engine" name="engine" required>
+                    </div>
+                    <div class="mb-3">
+                      <label for="refacciones" class="form-label">Refacciones:</label>
+                      <select class="form-select" id="refacciones" name="refacciones" required>
+                          <option disabled selected>Seleccione una opción</option>
+                          {% for pieza in piezas %}
+                              <option value="{{ pieza[0] }}">{{ pieza[0] }}</option>
+                          {% endfor %}
+                      </select>
+                  </div>
+                  
+                  
+                  
+                  <div class="mb-3">
+                    <label for="servicios" class="form-label">Servicios:</label>
+                    <select class="form-select" id="service" name="service" required>
+                        <option disabled selected>Seleccione una opción</option>
+                        {% for servicio in servicios %}
+                            <option value="{{ servicio[0] }}">{{ servicio[0] }}</option>
+                        {% endfor %}
+                    </select>
+                  </div>
+
+                    <div class="mb-3">
+                      <label for="marca" class="form-label">Status:</label>
+                    
+                      <select class="form-control" id="status" name="status" required>
+                        <option disabled selected >Seleccione Status</option>
+                        <option value="Activo">Activo</option>
+                        <option value="Pendiente">Pendiente</option>
+                        <option value="Finalizado">Finalizado</option>
+                        
+                    </select>
+                    </div>
+                    <div class="mb-3">
+                      <label for="marca" class="form-label">Pago:</label>
+                      
+                      <select class="form-control" id="payment" name="payment" required>
+                        <option disabled selected >Seleccione Pago</option>
+                        <option value="Credito">Credito</option>
+                        <option value="Contado">Contado</option>
+                        
+                        
+                    </select>
+                    </div>
+                    <div class="mb-3">
+                      <label for="marca" class="form-label">Costo:</label>
+                      <input type="text" class="form-control" id="cost" name="cost" required>
+                    </div>
+                    <div class="mb-3">
+                      <label for="marca" class="form-label">Fecha de Entrada:</label>
+                      <small id="medidaHelp" class="form-text text-muted">Año/Mes/Dia.</small>
+                      <input type="text" class="form-control" id="entry_date" name="entry_date" required>
+                    </div>
+                    <div class="mb-3">
+                      <label for="marca" class="form-label">Fecha de Salida:</label>
+                      <small id="medidaHelp" class="form-text text-muted">Año/Mes/Dia.</small>
+                      <input type="text" class="form-control" id="exit_date" name="exit_date" required>
+                    </div>
+                    <div class="mb-3">
+                      <label for="marca" class="form-label">Mecanico:</label>
+                      <input type="text" class="form-control" id="mechanic" name="mechanic" required>
+                    </div>
+
+                    
+
+                    <!-- Botón de envío del formulario -->
+                    <button type="submit" class="text-black btn btn-primary ">Agregar Datos</button>
+                </form>
+                
+              </div>
+
+<!-- ... (Código posterior) ... -->
+
+
+  
+              <!-- Modal Footer -->
+              <div class="modal-footer">
+                  <button type="button" class=" text-black btn btn-secondary mt-3" " data-dismiss="modal">Cerrar</button>
+              </div>
+  
+          </div>
+      </div>
+  </div>
+
+
+
+
+
+  </section>
+
+  <section>
+    <form action="{{ url_for('buscarhisto') }}" method="GET" class=" mx-20 my-[50px] ">
+      <div class="input-group border-black ">
+          <input type="text" name="query" class="form-control border-black" placeholder="BUSCAR...">
+          <button type="submit" class="border-black bg-[#C21807]  text-white rounded-lg mx-4 px-2 ">BUSCAR</button>
+          <!----  poner el margen del boton en negro-->
+      </div>
+    </form>
+  </section>
+
+    
+
+
+
+
+    {% if usuarios %}
+    <div class="caja">
+        
+        <table class="table table-striped">
+          <thead class="table-dark">
+              <tr>
+                  <th scope="col">Nº</th>
+                  <th scope="col">MODELO</th>
+                  <th scope="col">MARCA</th>
+                  <th scope="col">MOTOR</th>
+                  <th scope="col">Refacciones</th>
+                  <th scope="col">SERVICIO</th>
+                  <th scope="col">STATUS</th>
+                  <th scope="col">PAGO</th>
+                  <th scope="col">COSTO</th>
+                  <th scope="col">ENTRADA</th>
+                  <th scope="col">SALIDA</th>
+                  <th scope="col">MECANICO</th>
+                  <th scope="col"></th>
+                  <th scope="col"></th>
+              </tr>
+          </thead>
+          <tbody>
+              {% for mostrar in usuarios %}
+                  <tr>
+                      
+                      <th scope="row">{{ mostrar[0] }}</th>
+                      <td>{{ mostrar[1] }}</td>
+                      <td>{{ mostrar[2] }}</td>
+                      <td>{{ mostrar[3] }}</td>
+                      <td>{{ mostrar[4] }}</td>
+                      <td>{{ mostrar[5] }}</td>
+                      <td>{{ mostrar[6] }}</td>
+                      <td>{{ mostrar[7] }}</td>
+                      <td>{{ mostrar[8] }}</td>
+                      <td>{{ mostrar[9] }}</td>
+                      <td>{{ mostrar[10] }}</td>
+                      <td>{{ mostrar[11] }}</td>
+                      <td>
+                        <a href="{{ url_for('actualizar_registro', id=mostrar[0]) }}" class="">
+                          <img src="{{ url_for('static', filename='images/pencil.svg') }}" alt="" class="btn btn-primary">
+
+                        </a>
+                      </td>
+
+
+
+                      <td>
+                        <a href="{{ url_for('eliminar_registro', id=mostrar[0]) }}" class="btn btn-danger">
+                            <img src="{{ url_for('static', filename='images/trash.svg') }}" alt="Eliminar" class="bi bi-trash">
+                        </a>
+                    </td>
+                    
+                  </tr>
+              {% endfor %}
+          </tbody>
+      </table>
+      
+      {% else %}
+      <p>no hay datos</p>
+    {% endif %}
+    </div>
+  </div>
+
+
+  
+                
+</body>
+
+    
+{% endblock %}
+
+{% block bootstrap %}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+
+
+{% endblock %}
+
+

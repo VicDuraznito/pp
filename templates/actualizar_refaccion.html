@@ -1,0 +1,63 @@
+{% extends "layout.html" %}
+
+{% block title %}Actualizar Refaccion{% endblock %}
+<head>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <!-- Otros elementos en la sección head -->
+</head>
+
+{% block body %}
+  <div class="container mt-5">
+    <h1 class="mb-4">Actualizar Registro</h1>
+    
+    <form action="{{ url_for('actualizar_refaccion', id=mostrar[0]) }}" method="POST">
+
+      <!-- Campos del formulario -->
+        <div class="mb-3">
+            <label for="model" class="form-label">Pieza:</label>
+            <input type="text" class="form-control" id="pieza" name="pieza" value="{{ mostrar[1] }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="brand" class="form-label">Codigo:</label>
+            <input type="text" class="form-control" id="codigo" name="codigo" value="{{ mostrar[2] }}" required>
+        </div>
+        <div class="mb-3">
+          <label for="brand" class="form-label">Marca:</label>
+          <input type="text" class="form-control" id="marca" name="marca" value="{{ mostrar[3] }}" required>
+        </div>
+        <div class="mb-3">
+          <label for="medida" class="form-label">Medida:</label>
+          <select class="form-control" id="medida" name="medida" required>
+              
+              <option value="lts" {% if mostrar[4] == 'lts' %} selected {% endif %}>Litros</option>
+              <option value="pza" {% if mostrar[4] == 'pza' %} selected {% endif %}>Piezas</option>
+              <option value="caja" {% if mostrar[4] == 'caja' %} selected {% endif %}>Caja</option>
+              <option value="kg" {% if mostrar[4] == 'kg' %} selected {% endif %}>Kilos</option>
+          </select>
+        </div>
+        <div class="mb-3">
+            <label for="engine" class="form-label">Descripcion:</label>
+            <input type="text" class="form-control" id="descripcion" name="descripcion" value="{{ mostrar[5] }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="service" class="form-label">Stock:</label>
+            <input type="text" class="form-control" id="stock" name="stock" value="{{ mostrar[6] }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="status" class="form-label">Compra:</label>
+            <input type="text" class="form-control" id="compra" name="compra" value="{{ mostrar[7] }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="payment" class="form-label">Venta:</label>
+            <input type="text" class="form-control" id="venta" name="venta" value="{{ mostrar[8] }}" required>
+        </div>
+        
+      <!-- Botón de envío del formulario -->
+      <button type="submit" class="btn btn-primary">Actualizar Registro</button>
+    </form>
+
+    <a href="{{ url_for('listar') }}" class="btn btn-secondary mt-3">Cancelar</a>
+  </div>
+{% endblock %}

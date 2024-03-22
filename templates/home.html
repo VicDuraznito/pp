@@ -1,0 +1,76 @@
+{% extends "layout.html" %}
+
+{% block tittle %} home {% endblock %}
+
+
+
+
+
+{% block body %}
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<body class="bg-[url('static/images/bg3.jpg')] ">
+
+    
+    <section class="  bg-[#C21807] h-[90px] flex items-center ">
+
+        <nav class=" ">
+            <div class="flex space-x-80 p-auto mx-5 items-center">
+                <img class="h-16 w-16" src=" static/images/logo4.png " alt="">
+                <h3 class="  font-semibold text-2xl text-white">UNIVERSALES LLANTAS Y SUSPENCIONES</h3>
+                <a class=" border-2 border-white text-white rounded-lg w-[60px] text-center hover:scale-110" href="{{ url_for('logout') }}">Salir</a>
+            </div>
+        </nav>
+
+    </section>
+    
+    
+    <section class="flex justify-around  ">
+        <div class="flex items-center h-auto">
+
+            <div class=" flex align-middle space-x-[100px] mt-[120px] ">
+
+                    <div class="bg-[#C21807] w-[230px] rounded-lg h-[300px] flex items-center justify-center hover:scale-110">
+                        <a href="{{ url_for('servicios') }}">
+                        <p class="flex justify-center text-white font-bold w-[200px] mb-2">SERVICIOS</p>
+                        <img src="static/images/wrench.png" alt=""  class="bg-cover w-20 h-20 rounded-lg">
+                       
+                        </a>
+                        
+                    </div>
+               
+        
+
+               
+                    <div class="bg-[#C21807] rounded-lg w-[230px] flex items-center justify-center hover:scale-110">
+                        <a href="{{ url_for('listar') }}">
+                        <p class="flex justify-center text-white font-bold w-[200px] mb-2">INVENTARIO</p>
+                        <img src="static/images/" alt="" class="bg-cover w-52 h-60 rounded-lg">
+                        </a>
+                    </div>
+                
+                
+                    <div class="bg-[#C21807] rounded-lg w-[230px] flex items-center justify-center hover:scale-110">
+                        <a href="{{ url_for('historial') }}">
+                        <p class="flex justify-center text-white font-bold w-[200px] mb-2">HISTORIAL</p>
+                        <img src="static/images/" alt=""  class="bg-cover w-52 h-60 rounded-lg">
+                        </a>
+                    </div>
+                
+
+
+            </div>
+        </div>
+    </section>
+    
+</body>
+
+    
+{% endblock %}
+
+{% block bootstrap %}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+{% endblock %}
+
+

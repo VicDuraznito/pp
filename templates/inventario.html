@@ -1,0 +1,212 @@
+{% extends "layout.html" %}
+
+{% block tittle %} inventario {% endblock %}
+
+{% block link %}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+{% endblock %}
+
+
+
+
+
+{% block body %}
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<body class="">
+
+  <div>
+    <section class="  bg-[#C21807] h-[90px] flex items-center ">
+
+      <nav class=" ">
+          <div class="flex space-x-80 p-auto mx-5 items-center">
+              <img class="h-16 w-16" src=" static/images/logo4.png " alt="">
+              <h3 class="  font-semibold text-2xl text-white">UNIVERSALES LLANTAS Y SUSPENCIONES</h3>
+              <a class=" border-2 border-white text-white rounded-lg w-[68px] text-center hover:scale-110" href="{{ url_for('home') }}">Regresar</a>
+          </div>
+      </nav>
+
+  </section>
+
+  <section>
+    <div class="flex justify-end ">
+      
+      <button type="button" class="  h-10 w-10  mx-4 my-2  rounded hover:scale-110  " data-toggle="modal" data-target="#myModal">
+        
+        <img class="w-8 h-8  " src="{{ url_for('static', filename='images/plus.svg') }}" alt="">
+      </button>
+    </div>
+  <div class="modal" id="myModal">
+      <div class="modal-dialog modal-lg">
+          <div class="modal-content"> 
+  
+              <!-- Modal Header -->
+              <div class="modal-header">
+                  <h4 class="modal-title">AGREGAR REGISTRO</h4>
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+              </div>
+  
+              <!-- Modal Body -->
+             
+
+              <!-- Modal Body -->
+              <div class="modal-body">
+                <h1>Formulario para agregar datos</h1>
+                <form action="{{ url_for('agregar_refaccion') }}" method="POST">
+                    <!-- Campos del formulario -->
+                    <div class="mb-3">
+                        <label for="modelo" class="form-label">Pieza:</label>
+                        <input type="text" class="form-control" id="pieza" name="pieza" required>
+                    </div>
+                    <div class="mb-3">
+                      <label for="modelo" class="form-label">Codigo:</label>
+                      <input type="text" class="form-control" id="codigo" name="codigo" required>
+                    </div>
+                    <div class="mb-3">
+                      <label for="modelo" class="form-label">Marca:</label>
+                      <input type="text" class="form-control" id="marca" name="marca" required>
+                    </div>
+                    <div class="mb-3">
+                      <label for="medida" class="form-label">Medida:</label>
+                      <select class="form-control" id="medida" name="medida" required>
+                          <option disabled selected >Seleccione Medida</option>
+                          <option value="lts">Litros</option>
+                          <option value="pza">Piezas</option>
+                          <option value="caja">Caja</option>
+                          <option value="kg">Kilos</option>
+                      </select>
+                      
+                  </div>
+                  
+                    <div class="mb-3">
+                        <label for="marca" class="form-label">Descripcion:</label>
+                        <input type="text" class="form-control" id="descripcion" name="descripcion" required>
+                    </div>
+                    <div class="mb-3">
+                      <label for="marca" class="form-label">Stock:</label>
+                      <input type="text" class="form-control" id="stock" name="stock" required>
+                    </div>
+                    <div class="mb-3">
+                      <label for="marca" class="form-label">Compra:</label>
+                      <input type="text" class="form-control" id="compra" name="compra" required>
+                    </div>
+                    <div class="mb-3">
+                      <label for="marca" class="form-label">Venta:</label>
+                      <input type="text" class="form-control" id="venta" name="venta" required>
+                    </div>
+                    
+                  
+
+                    
+
+                    <!-- Botón de envío del formulario -->
+                    <button type="submit" class="text-black btn btn-primary ">Agregar Datos</button>
+                </form>
+              </div>
+
+<!-- ... (Código posterior) ... -->
+
+
+  
+              <!-- Modal Footer -->
+              <div class="modal-footer">
+                  <button type="button" class=" text-black btn btn-secondary mt-3" " data-dismiss="modal">Cerrar</button>
+              </div>
+  
+          </div>
+      </div>
+  </div>
+
+
+
+
+
+  </section>
+  <section>
+    <form action="{{ url_for('buscar') }}" method="GET" class=" mx-20 my-[50px] ">
+      <div class="input-group border-black ">
+          <input type="text" name="query" class="form-control border-black" placeholder="BUSCAR...">
+          <button type="submit" class="border-black bg-[#C21807]  text-white rounded-lg mx-4 px-2 ">BUSCAR</button>
+          <!----  poner el margen del boton en negro-->
+      </div>
+    </form>
+  </section>
+
+    
+    {% if usuarios %}
+    <div class="caja">
+        
+        <table class="table table-striped">
+          <thead class="table-dark">
+              <tr>
+                  <th scope="col">Nº</th>
+                  <th scope="col">Pieza</th>
+                  <th scope="col">Código</th>
+                  <th scope="col">Marca</th>
+                  <th scope="col">Stock</th>
+                  <th scope="col">Descripción</th>
+                  <th scope="col">Medida</th>
+                  <th scope="col">Compra</th>
+                  <th scope="col">Venta</th>
+                  <th scope="col"></th>
+                  <th scope="col"></th>
+              </tr>
+          </thead>
+          <tbody>
+              {% for mostrar in usuarios %}
+                  <tr>
+                      <th scope="row">{{ mostrar[0] }}</th>
+                      <td>{{ mostrar[1] }}</td>
+                      <td>{{ mostrar[2] }}</td>
+                      <td>{{ mostrar[3] }}</td>
+                      <td>{{ mostrar[4] }}</td>
+                      <td>{{ mostrar[5] }}</td>
+                      <td>{{ mostrar[6] }}</td>
+                      <td>{{ mostrar[7] }}</td>
+                      <td>{{ mostrar[8] }}</td>
+                      
+                      <td>
+                        <a href="{{ url_for('actualizar_refaccion', id=mostrar[0]) }}" class="">
+                          <img src="{{ url_for('static', filename='images/pencil.svg') }}" alt="" class="btn btn-primary">
+
+                        </a>
+                      </td>
+
+
+
+                      <td>
+                        <a href="{{ url_for('eliminar_refaccion', id=mostrar[0]) }}" class="btn btn-danger">
+                            <img src="{{ url_for('static', filename='images/trash.svg') }}" alt="Eliminar" class="bi bi-trash">
+                        </a>
+                    </td>
+                      
+                  </tr>
+              {% endfor %}
+          </tbody>
+      </table>
+      
+      {% else %}
+      <p>no hay datos</p>
+    {% endif %}
+    </div>
+  </div>
+    
+</body>
+
+    
+{% endblock %}
+
+{% block bootstrap %}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+{% endblock %}
+
+

@@ -1,0 +1,84 @@
+{% extends "layout.html" %}
+
+{% block title %}Actualizar Registro{% endblock %}
+<head>
+    <!-- Agrega cualquier elemento adicional que necesites en la sección head -->
+</head>
+
+{% block body %}
+<div class="container mt-5">
+    <h1 class="mb-4">Actualizar Registro</h1>
+    
+    <form action="{{ url_for('actualizar_registro', id=mostrar[0]) }}" method="POST">
+        <!-- Campos del formulario -->
+        <div class="mb-3">
+            <label for="model" class="form-label">Modelo:</label>
+            <input type="text" class="form-control" id="model" name="model" value="{{ mostrar[1] }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="brand" class="form-label">Marca:</label>
+            <input type="text" class="form-control" id="brand" name="brand" value="{{ mostrar[2] }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="engine" class="form-label">Motor:</label>
+            <input type="text" class="form-control" id="engine" name="engine" value="{{ mostrar[3] }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="refacciones" class="form-label">Refacciones:</label>
+            <select class="form-select" id="refacciones" name="refacciones" required>
+                <option disabled>Seleccione una opción</option>
+                {% for pieza in piezas %}
+                    <option value="{{ pieza[0] }}" {% if mostrar[4] == pieza[0] %} selected {% endif %}>{{ pieza[0] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="service" class="form-label">Servicio:</label>
+            <select class="form-select" id="service" name="service" required>
+                <option disabled>Seleccione una opción</option>
+                {% for servicio in servicios %}
+                    <option value="{{ servicio[0] }}" {% if mostrar[5] == servicio[0] %} selected {% endif %}>{{ servicio[0] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="status" class="form-label">Status:</label>
+            <select class="form-select" id="status" name="status" required>
+                <option value="Activo" {% if mostrar[6] == 'Activo' %} selected {% endif %}>Activo</option>
+                <option value="Pendiente" {% if mostrar[6] == 'Pendiente' %} selected {% endif %}>Pendiente</option>        
+                <option value="Finalizado" {% if mostrar[6] == 'Finalizado' %} selected {% endif %}>Finalizado</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="payment" class="form-label">Pago:</label>
+            <select class="form-select" id="payment" name="payment" required>
+                <option value="Credito" {% if mostrar[7] == 'Credito' %} selected {% endif %}>Credito</option>
+                <option value="Contado" {% if mostrar[7] == 'Contado' %} selected {% endif %}>Contado</option>        
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="cost" class="form-label">Costo:</label>
+            <input type="text" class="form-control" id="cost" name="cost" value="{{ mostrar[8] }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="entry_date" class="form-label">Fecha de Entrada:</label>
+            <small id="medidaHelp" class="form-text text-muted">Año/Mes/Dia.</small>
+            <input type="text" class="form-control" id="entry_date" name="entry_date" value="{{ mostrar[9] }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="exit_date" class="form-label">Fecha de Salida:</label>
+            <small id="medidaHelp" class="form-text text-muted">Año/Mes/Dia.</small>
+            <input type="text" class="form-control" id="exit_date" name="exit_date" value="{{ mostrar[10] }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="mechanic" class="form-label">Mecanico:</label>
+            <input type="text" class="form-control" id="mechanic" name="mechanic" value="{{ mostrar[11] }}" required>
+        </div>
+
+        <!-- Botón de envío del formulario -->
+        <button type="submit" class="btn btn-primary">Actualizar Registro</button>
+    </form>
+
+    <a href="{{ url_for('historial') }}" class="btn btn-secondary mt-3">Cancelar</a>
+</div>
+{% endblock %}
