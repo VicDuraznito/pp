@@ -4,6 +4,9 @@ from flask_wtf.csrf import CSRFProtect
 from flask_login import LoginManager, login_user, logout_user, login_required
 
 
+from flask_wtf.csrf import generate_csrf
+
+
 import mysql.connector
 
 from config import config
@@ -67,36 +70,59 @@ def index():
 
 
 
+# @app.route('/login', methods=['GET', 'POST'])
+# def login():
+    
+#     if request.method == 'POST':
+
+
+        
+#         print(request.form['username'])
+#         print(request.form['password'])
+        
+#         user = User(0, request.form['username'], request.form['password'])
+    
+#         print("Before login call")
+#         logged_user = ModelUser.login(db, user)
+#         print("After login call")
+
+#         if logged_user != None:
+#             if logged_user.password:
+#                 login_user(logged_user)
+#                 return redirect(url_for('home'))
+#             else:
+#                 flash("Invalid password...")
+#                 print('no contraseña')
+#                 return render_template('auth/login.html')
+#         else:
+#             flash("User not found...")
+#             print('no usuario')
+#             return render_template('auth/login.html')
+#     else:
+#         return render_template('auth/login.html')
+
+from flask_wtf.csrf import generate_csrf
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    
     if request.method == 'POST':
-
-
-        
-        print(request.form['username'])
-        print(request.form['password'])
-        
         user = User(0, request.form['username'], request.form['password'])
-    
-        print("Before login call")
         logged_user = ModelUser.login(db, user)
-        print("After login call")
-
-        if logged_user != None:
+        if logged_user:
             if logged_user.password:
                 login_user(logged_user)
                 return redirect(url_for('home'))
             else:
                 flash("Invalid password...")
-                print('no contraseña')
-                return render_template('auth/login.html')
+                return render_template('auth/login.html', csrf_token=generate_csrf())
         else:
             flash("User not found...")
-            print('no usuario')
-            return render_template('auth/login.html')
+            return render_template('auth/login.html', csrf_token=generate_csrf())
     else:
-        return render_template('auth/login.html')
+        return render_template('auth/login.html', csrf_token=generate_csrf())
+
+
+
 
 
 @app.route('/logout')
@@ -106,6 +132,7 @@ def logout():
 
 
 @app.route('/home')
+@login_required
 def home():
     return render_template('home.html')
 
@@ -119,6 +146,7 @@ def home():
 
 
 @app.route('/inventario', methods=['GET'])
+@login_required
 def listar():
     cur = db.connection.cursor()
     try:
@@ -163,6 +191,8 @@ def buscar():
     cur.close()
 
     return render_template('inventario.html', query=query, usuarios=resultados)
+
+
 
 
 
@@ -511,7 +541,10 @@ def eliminar_registro(id):
 
 #     return "Error al recuperar datos del inventario"
 
+from datetime import datetime
+
 @app.route('/historial', methods=['GET'])
+@login_required
 def historial():
     cur = db.connection.cursor()
     try:
@@ -526,8 +559,11 @@ def historial():
             # Actualizar el stock de refacciones
             actualizar_refacciones()
             
+            # Obtener la fecha actual
+            current_date = datetime.now().strftime('%Y-%m-%d')
+            
             print('jalo')  # Agrega este mensaje para verificar si la función se ejecuta
-            return render_template('record.html', usuarios=usuarios, piezas=piezas, servicios=servicios)
+            return render_template('record.html', usuarios=usuarios, piezas=piezas, servicios=servicios, current_date=current_date)
         except Exception as e:
             print(f"Error en la función historial: {e}")
             return "Error al recuperar datos del inventario"
@@ -538,8 +574,6 @@ def historial():
         cur.close()
 
     return "Error al recuperar datos del inventario"
-
-
 
 
 
@@ -591,6 +625,7 @@ def buscarhisto():
 
 
 @app.route('/servicios', methods=['GET'])
+@login_required
 def servicios():
     cur = db.connection.cursor()
     try:

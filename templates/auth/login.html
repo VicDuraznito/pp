@@ -17,37 +17,49 @@
   
 
 
-    <form class=" bg-black w-25 h-50 rounded p-3" action="/login" method="POST">
-      {% with messages = get_flashed_messages() %}
-      {% if messages %}
-      <br />
-      {% for message in messages %}
-        <div class="alert alert-primary alert-dismissible" role="alert">
-          <strong>{{ message }}</strong>
-          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-      {% endfor %}
-      {% endif %}
-      {% endwith %}
-
-      <h1 class="h3 mb-3 fw-normal font-bold text-white mt-2">INICIA SESIÓN</h1>
-
-      <div class="form-floating mt-5">
-        <input type="username" name="username" class="form-control" id="floatingInput" placeholder="username">
-        <label for="floatingInput">Username</label>
+  <form class=" bg-black w-25 h-50 rounded p-3" action="/login" method="POST">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <br />
+    {% for category, message in messages %}
+      <div class="alert alert-primary alert-dismissible" role="alert" id="{{ category }}">
+        <strong>{{ message }}</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
       </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
 
-      <div class="form-floating mt-3">
-        <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="password">
-        <label for="floatingPassword">Password</label>
-      </div>
+    <h1 class="h3 mb-3 fw-normal font-bold text-white mt-2">INICIA SESIÓN</h1>
+    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
 
-      <button class="btn btn-lg btn-primary w-100 mt-3 mb-3" type="submit">ENTRAR</button>
+    <div class="form-floating mt-5">
+      <input type="username" name="username" class="form-control" id="floatingInput" placeholder="username">
+      <label for="floatingInput">Username</label>
+    </div>
 
-    </form>
+    <div class="form-floating mt-3">
+      <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="password">
+      <label for="floatingPassword">Password</label>
+    </div>
+
+    <button class="btn btn-lg btn-primary w-100 mt-3 mb-3" type="submit">ENTRAR</button>
+
+  </form>
 
 </main>
+
+<script>
+    // Función para ocultar automáticamente los mensajes flash después de cierto tiempo
+    document.addEventListener('DOMContentLoaded', function() {
+        var alerts = document.querySelectorAll('.alert');
+        alerts.forEach(function(alert) {
+            setTimeout(function() {
+                alert.style.display = 'none';
+            }, 5000); // Ocultar el mensaje después de 5 segundos (5000 milisegundos)
+        });
+    });
+</script>
+
 </body>
 {% endblock %}
-
-
